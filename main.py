@@ -5,6 +5,7 @@ from models.add import *
 from models.answer import *
 from models.see import *
 from models.question import *
+import pandas as pd
 
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print("%%%%%% S U R V E Y %%%%%%%%")
@@ -18,15 +19,44 @@ if question_options.capitalize()=="Y":
     yesnotype = str(input("Is this a Yes or No question? (responses: Y/N) ")).capitalize()
     yesnotype = YesNo(istype=yesnotype)
     if yesnotype.istype == "Y":
-        pass
+        QA = YesNoAnswers()
     elif yesnotype.istype == "N":
-        try:
-            intnumber = int(input("How many answers? (int) "))
-        except:
-            print("Invalid input, please enter an integer")
-        else:
-            multiplechoice = MultipleChoice(answernumber=intnumber)
-            multiplechoice.askanswer()
-            print(multiplechoice.allanswers)
+        tries = True
+        tres = 0
+        while tries == True:
+            try:
+                intnumber = int(input("How many answers? (int) "))
+            except:
+                if tres < 2:
+                    print("Invalid input. Please enter an integer")
+                    tres += 1
+                    continue
+                elif tres == 2:
+                    print("To many invalid inputs. Question has not been created")
+                    break
+            else:
+                tries = False
+                multiplechoice = MultipleChoice(answernumber=intnumber)
+                multiplechoice.askanswer()
+                QA = MCAnswers(answers = multiplechoice.allanswers)
+                print("Your question has been created!")
+
 else:
     print("OK see you later!")
+
+polllaunched = 0
+
+launchpoll = input("Do you want to launch a poll? (Y/N) ")
+launchpoll = str(launchpoll).capitalize()
+try:
+    len(launchpoll) == 1
+except:
+    print("Invalid input, please respond with Y or N")
+else:
+    if launchpoll == "Y":
+        polllaunched += 1
+        whichpoll = input("Which poll would you like to launch? (int) ")
+
+    else:
+        print("No poll is being launched, have a nice day!")
+
