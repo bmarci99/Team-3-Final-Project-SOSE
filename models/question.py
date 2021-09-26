@@ -14,6 +14,7 @@ class YesNo(Question):
 class MultipleChoice(Question):
     def __init__(self, answernumber = 4):
         self.answernumber = answernumber
+
     def askanswer(self):
         allanswers = []
         for i in range(1, (self.answernumber + 1)):
