@@ -18,8 +18,13 @@ if question_options.capitalize()=="Y":
     yesnotype = str(input("Is this a Yes or No question? (responses: Y/N) ")).capitalize()
     yesnotype = YesNo(istype=yesnotype)
     if yesnotype.istype == "Y":
-        print("This is a Yes or No question")
-    else:
-        print("This is a multiple choice question")
+        pass
+    elif yesnotype.istype == "N":
+        try:
+            intnumber = int(input("How many answers? (int) "))
+        except:
+            print("Invalid input, please enter an integer")
+        else:
+            multiplechoice = MultipleChoice(answernumber=intnumber)
 else:
     print("OK see you later!")

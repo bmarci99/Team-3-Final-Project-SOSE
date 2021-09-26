@@ -11,3 +11,7 @@ class YesNo(Question):
     def __init__(self, istype = "Y"):
         self.istype = istype
 
+class MultipleChoice(Question):
+    def __init__(self, answernumber = 4):
+        self.answernumber = answernumber
+
