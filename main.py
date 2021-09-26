@@ -5,13 +5,11 @@ from models.add import *
 from models.answer import *
 from models.see import *
 from models.question import *
-import pandas as pd
+#import pandas as pd
 
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print("%%%%%% S U R V E Y %%%%%%%%")
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-
-question_options= input("Do you want to create a Poll? (response: Y/N) ")
 
 question_options= input("Do you want to create a Poll? (response: Y/N) ")
 if question_options.capitalize()=="Y":
@@ -45,19 +43,25 @@ if question_options.capitalize()=="Y":
 else:
     print("OK see you later!")
 
-polllaunched = 0
+polllaunch = True
+pollfail= 0
 
 launchpoll = input("Do you want to launch a poll? (Y/N) ")
 launchpoll = str(launchpoll).capitalize()
-try:
-    len(launchpoll) == 1
-except:
-    print("Invalid input, please respond with Y or N")
-else:
-    if launchpoll == "Y":
-        polllaunched += 1
-        whichpoll = input("Which poll would you like to launch? (int) ")
 
+while polllaunch==True and pollfail<=3:
+    try:
+        len(launchpoll) == 1
+    except:
+        print("Invalid input, please respond with Y or N")
+        pollfail += 1
+        if pollfail >3:
+            print("Sorry too many failed attempts!")
     else:
-        print("No poll is being launched, have a nice day!")
+        if launchpoll == "Y":
+            whichpoll = input("Which poll would you like to launch? (int) ")
+            break
+        else:
+            print("No poll is being launched, have a nice day!")
+            polllaunch= False
 
