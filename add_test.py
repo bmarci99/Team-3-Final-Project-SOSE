@@ -1,7 +1,7 @@
 import pytest
 
-from add import Poll
-from question import Question
+from models.add import Poll
+from models.question import Question
 
 class TestAdd:
 

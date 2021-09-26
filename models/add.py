@@ -1,10 +1,9 @@
-from question import Question
+from models.question import Question
 
 #create a poll class
 class Poll:
-
-    def __init__(self):
-        pass
+    def __init__(self, question):
+        self._question = question
 
 #store the question as a method so it can be called as text
     def question(self, as_text=False):
