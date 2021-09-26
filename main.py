@@ -26,5 +26,7 @@ if question_options.capitalize()=="Y":
             print("Invalid input, please enter an integer")
         else:
             multiplechoice = MultipleChoice(answernumber=intnumber)
+            multiplechoice.askanswer()
+            print(multiplechoice.allanswers)
 else:
     print("OK see you later!")
