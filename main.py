@@ -10,7 +10,7 @@ print("%%%%%% S U R V E Y %%%%%%%%")
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 
-question_options= input("Do you want to create a Poll? (response: Y/N)")
+question_options= input("Do you want to create a Poll? (response: Y/N) ")
 if question_options=="Y":
     question= input("What is your question?  ")
     poll= Poll(question)
