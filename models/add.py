@@ -12,3 +12,4 @@ class Poll:
             return question_as_text
         else:
             return self._question
+
