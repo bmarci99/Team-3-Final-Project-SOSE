@@ -5,8 +5,19 @@ from models.add import *
 from models.answer import *
 from models.see import *
 from models.question import *
+from models.sql import *
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
-engine = create_engine('sqlite:///OurDataBase.sqlite')
+engine = create_engine(
+    'sqlite:///OurDataBase.sqlite',
+    connect_args ={"check_same_thread": False},
+    poolclass=StaticPool
+)
 Base = declarative_base()
 session = sessionmaker()
 session.configure(bind=engine)
@@ -20,23 +31,17 @@ print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 question_options= input("Do you want to create a Poll? (response: Y/N) ")
 if question_options.capitalize()=="Y":
     question= input("What is your question?  ")
-    value= Question(rt= question)
+    value= Question1(rt=question)
     s.add(value)
     s.commit()
-
-
-
     poll= Poll(question)
     yesnotype = str(input("Is this a Yes or No question? (responses: Y/N) ")).capitalize()
     yesnotype = YesNo(istype=yesnotype)
     if yesnotype.istype == "Y":
         QA = YesNoAnswers()
-        answer = PotentialAnswer(rt=question)
-        s.add(value)
+        potentialanswer = PotentialAnswer(name= 'Y', name1 = 'N')
+        s.add(potentialanswer)
         s.commit()
-
-
-
     elif yesnotype.istype == "N":
         tries = True
         tres = 0
@@ -61,6 +66,12 @@ if question_options.capitalize()=="Y":
 else:
     print("OK see you later!")
 
+
+a = s.query(Question).all()
+
+for i in a:
+    print(i.rt)
+
 polllaunch = True
 pollfail= 0
 
@@ -82,7 +93,4 @@ while polllaunch==True and pollfail<=3:
         else:
             print("No poll is being launched, have a nice day!")
             polllaunch= False
-
-if polllaunch==True:
-
 

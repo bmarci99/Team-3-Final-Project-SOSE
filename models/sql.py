@@ -5,17 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('sqlite:///OurDataBase.sqlite')
-
 Base = declarative_base()
 
-session = sessionmaker()
-session.configure(bind=engine)
-Base.metadata.create_all(engine)
 
-s = session()
-
-class Question(Base):
+class Question1(Base):
     __tablename__ = 'Question'
     id = Column(Integer, primary_key=True)
     rt = Column(String)
@@ -29,7 +22,7 @@ class PotentialAnswer(Base):
     name2 = Column(String)
     name3 = Column(String)
     Question_id = Column(Integer, ForeignKey('Question.id'))
-    potentialanswer = relationship(Question, backref=backref('potential_answer', uselist=True))
+    potentialanswer = relationship(Question1, backref=backref('potential_answer', uselist=True))
 
 
 class ActualAnswer(Base):
@@ -39,7 +32,4 @@ class ActualAnswer(Base):
     Potential_Answers_id = Column(Integer, ForeignKey('Potential_Answers.id'))
     actualanswer = relationship(PotentialAnswer, backref=backref('actual_answer', uselist=True))
     
-    
- john = Question(rt= question)
- s.add(john)
- s.commit()
+
