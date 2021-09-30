@@ -66,6 +66,7 @@ if question_options.capitalize()=="Y":
 else:
     print("OK see you later!")
 
+<<<<<<< HEAD
 
 a = s.query(Question).all()
 
@@ -73,12 +74,15 @@ for i in a:
     print(i.rt)
 
 polllaunch = True
+=======
+>>>>>>> 441fd7e3d0931c3edb59446d8f11da4ab659ccfd
 pollfail= 0
+polllaunch= True
 
 launchpoll = input("Do you want to launch a poll? (Y/N) ")
 launchpoll = str(launchpoll).capitalize()
 
-while polllaunch==True and pollfail<=3:
+while True and pollfail<=3:
     try:
         len(launchpoll) == 1
     except:
@@ -86,11 +90,24 @@ while polllaunch==True and pollfail<=3:
         pollfail += 1
         if pollfail >3:
             print("Sorry too many failed attempts!")
+            polllaunch==False
+            break
     else:
         if launchpoll == "Y":
             whichpoll = input("Which poll would you like to launch? (int) ")
+            polllaunch == True
             break
         else:
             print("No poll is being launched, have a nice day!")
             polllaunch= False
+            break
+
+if polllaunch==True:
+
+
+
+
+
+
+
 
