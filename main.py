@@ -5,7 +5,13 @@ from models.add import *
 from models.answer import *
 from models.see import *
 from models.question import *
-#import pandas as pd
+
+engine = create_engine('sqlite:///OurDataBase.sqlite')
+Base = declarative_base()
+session = sessionmaker()
+session.configure(bind=engine)
+Base.metadata.create_all(engine)
+s = session()
 
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print("%%%%%% S U R V E Y %%%%%%%%")
@@ -14,11 +20,23 @@ print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 question_options= input("Do you want to create a Poll? (response: Y/N) ")
 if question_options.capitalize()=="Y":
     question= input("What is your question?  ")
+    value= Question(rt= question)
+    s.add(value)
+    s.commit()
+
+
+
     poll= Poll(question)
     yesnotype = str(input("Is this a Yes or No question? (responses: Y/N) ")).capitalize()
     yesnotype = YesNo(istype=yesnotype)
     if yesnotype.istype == "Y":
         QA = YesNoAnswers()
+        answer = PotentialAnswer(rt=question)
+        s.add(value)
+        s.commit()
+
+
+
     elif yesnotype.istype == "N":
         tries = True
         tres = 0
@@ -64,4 +82,7 @@ while polllaunch==True and pollfail<=3:
         else:
             print("No poll is being launched, have a nice day!")
             polllaunch= False
+
+if polllaunch==True:
+
 

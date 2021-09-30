@@ -25,6 +25,9 @@ class PotentialAnswer(Base):
     __tablename__ = 'Potential_Answers'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    name1 = Column(String)
+    name2 = Column(String)
+    name3 = Column(String)
     Question_id = Column(Integer, ForeignKey('Question.id'))
     potentialanswer = relationship(Question, backref=backref('potential_answer', uselist=True))
 
