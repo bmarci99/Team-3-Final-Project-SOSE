@@ -6,25 +6,9 @@ from models.answer import *
 from models.see import *
 from models.question import *
 from models.sql import *
-from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
+from init_db import *
 
-engine = create_engine(
-    'sqlite:///OurDataBase.sqlite',
-    connect_args ={"check_same_thread": False},
-    poolclass=StaticPool
-)
-Base = declarative_base()
-session = sessionmaker()
-session.configure(bind=engine)
-Base.metadata.create_all(engine)
-s = session()
-
-
+s = init_db_session('question.sqlite')
 
 
 
@@ -79,7 +63,7 @@ else:
     print("OK see you later!")
 
 
-a = s.query(Question).all()
+a = s.query(Question1).all()
 
 for i in a:
     print(i.rt)

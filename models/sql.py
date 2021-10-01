@@ -5,16 +5,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-engine = create_engine(
-    'sqlite:///OurDataBase.sqlite',
-    connect_args ={"check_same_thread": False},
-    poolclass=StaticPool
-)
+#engine = create_engine(
+    #'sqlite:///OurDataBase.sqlite',
+    #connect_args ={"check_same_thread": False},
+    #poolclass=StaticPool)
 Base = declarative_base()
-session = sessionmaker()
-session.configure(bind=engine)
-Base.metadata.create_all(engine)
-s = session()
+#session = sessionmaker()
+#session.configure(bind=engine)
+#Base.metadata.create_all(engine)
+#s = session()
 
 class Question1(Base):
     __tablename__ = 'Question'
