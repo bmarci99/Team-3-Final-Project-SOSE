@@ -41,3 +41,10 @@ class ActualAnswer(Base):
     actualanswer = relationship(PotentialAnswer, backref=backref('actual_answer', uselist=True))
     
 
+ ## POTENTIALLY, THAT IS HOW WE COULD ADD DATA TO OUR DATABASE:
+# p = 0
+#for p in range(0,len(a)):
+#    p
+#    our_dictionary = {p : q.rt  for i in a }
+
+#print(our_dictionary)
