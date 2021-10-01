@@ -24,6 +24,10 @@ session.configure(bind=engine)
 Base.metadata.create_all(engine)
 s = session()
 
+
+
+
+
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print("%%%%%% S U R V E Y %%%%%%%%")
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -34,14 +38,22 @@ if question_options.capitalize()=="Y":
     value= Question1(rt=question)
     s.add(value)
     s.commit()
+
+
+
     poll= Poll(question)
     yesnotype = str(input("Is this a Yes or No question? (responses: Y/N) ")).capitalize()
     yesnotype = YesNo(istype=yesnotype)
     if yesnotype.istype == "Y":
         QA = YesNoAnswers()
+
+
+
         potentialanswer = PotentialAnswer(name= 'Y', name1 = 'N')
         s.add(potentialanswer)
         s.commit()
+
+
     elif yesnotype.istype == "N":
         tries = True
         tres = 0
@@ -66,16 +78,13 @@ if question_options.capitalize()=="Y":
 else:
     print("OK see you later!")
 
-<<<<<<< HEAD
 
 a = s.query(Question).all()
 
 for i in a:
     print(i.rt)
 
-polllaunch = True
-=======
->>>>>>> 441fd7e3d0931c3edb59446d8f11da4ab659ccfd
+
 pollfail= 0
 polllaunch= True
 
@@ -102,7 +111,6 @@ while True and pollfail<=3:
             polllaunch= False
             break
 
-if polllaunch==True:
 
 
 
