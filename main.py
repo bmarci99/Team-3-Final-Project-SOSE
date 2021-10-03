@@ -211,6 +211,9 @@ while True:
                             pass
 
                     sumall = sum0 + sum1 + sum2 + sum3
+                    if sumall == 0:
+                        print("There are no responses for this poll.")
+                        break
                     perc0 = round((sum0 / sumall) * 100, 2)
                     perc0 = str(perc0) + "%"
                     perc1 = round((sum1 / sumall) * 100, 2)
