@@ -36,7 +36,10 @@ class ActualAnswer(Base):
     __tablename__ = 'Answers'
     id = Column(Integer, primary_key=True)
     qid = Column(Integer)
-    answer = Column(String)
+    answer = Column(Integer)
+    answer1 = Column(Integer)
+    answer2 = Column(Integer)
+    answer3 = Column(Integer)
     Potential_Answers_id = Column(Integer, ForeignKey('Potential_Answers.id'))
     actualanswer = relationship(PotentialAnswer, backref=backref('actual_answer', uselist=True))
     

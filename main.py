@@ -121,10 +121,20 @@ while True and pollfail<=3:
                 whichchoice = int(input(("Select the number corresponding to your answer (int) ")))
                 print(whichchoice)
                 print("You have selected " + dicti[whichchoice])
-                #### THIS PART DOES NOT WORK
-                actualanswer = ActualAnswer(qid=whichpoll, answer=dicti[whichchoice])
-                s.add(actualanswer)
-                s.commit()
+                if whichchoice == 1:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=1, answer1=0, answer2=0, answer3=0)
+                    s.add(actualanswer)
+                    s.commit()
+                elif whichchoice == 2:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=0, answer1=1, answer2=0, answer3=0)
+                    s.add(actualanswer)
+                    s.commit()
+                else:
+                    print("Please enter '1' or '2' as your response")
+                a = s.query(ActualAnswer).all()
+                for i in a:
+                    print(i.id, i.qid, i.answer, i.answer1, i.answer2, i.answer3)
+
             else:
                 print("Answer the following question?")
                 print(s.query(Question1)[q_id].rt, "?")
@@ -138,14 +148,78 @@ while True and pollfail<=3:
                 print(whichchoice)
                 print("You have selected " + dicti[whichchoice])
                 #### THIS PART DOES NOT WORK
-                actualanswer = ActualAnswer(qid= whichpoll, answer = dicti[whichchoice])
-                s.add(actualanswer)
-                s.commit()
+                if whichchoice == 1:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=1, answer1=0, answer2=0, answer3=0)
+                    s.add(actualanswer)
+                    s.commit()
+                elif whichchoice == 2:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=0, answer1=1, answer2=0, answer3=0)
+                    s.add(actualanswer)
+                    s.commit()
+                elif whichchoice == 3:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=0, answer1=0, answer2=1, answer3=0)
+                    s.add(actualanswer)
+                    s.commit()
+                elif whichchoice == 4:
+                    actualanswer = ActualAnswer(qid=whichpoll, answer=0, answer1=0, answer2=0, answer3=1)
+                    s.add(actualanswer)
+                    s.commit()
+                else:
+                    print("This answer is invalid.")
 
                 polllaunch == True
+
+                a = s.query(ActualAnswer).all()
+                for i in a:
+                    print(i.id, i.answer, i.answer1, i.answer2, i.answer3)
 
             break
         else:
             print("No poll is being launched, have a nice day!")
             polllaunch= False
             break
+sum0 = 0
+sum1 = 0
+sum2 = 0
+sum3 = 0
+
+while True:
+    seeresults = str(input("Would you like to see the results of your poll?")).capitalize()
+    if seeresults == "Y":
+        print("Results are available for the following polls: ")
+        a = s.query(Question1).all()
+        for i in a:
+            print(i.id, i.rt)
+        whichresults = int(input("Which poll results would you like to see today? Enter the corresponding ID (int) "))
+
+        for i in range(0,len(s.query(ActualAnswer).all())):
+            print(s.query(ActualAnswer)[i].qid, whichresults )
+            if s.query(ActualAnswer)[i].qid == whichresults:
+                print(s.query(ActualAnswer)[i].qid, whichresults)
+                sum0 = sum0 + s.query(ActualAnswer)[i].answer
+                sum1 = sum1 + s.query(ActualAnswer)[i].answer1
+                sum2 = sum2 + s.query(ActualAnswer)[i].answer2
+                sum3 = sum3 + s.query(ActualAnswer)[i].answer3
+                print(sum0, sum1, sum2, sum3)
+            else:
+                pass
+
+
+            sumall = sum0 + sum1 + sum2 + sum3
+            print(sum0, sum1, sum2, sum3, sumall)
+
+        #results = s.query(ActualAnswer).get(whichresults)
+        #print(results)
+        #sum = s.query(ActualAnswer).answer()
+        #sum1 = s.query(ActualAnswer).answer1()
+        #sum2 = s.query(ActualAnswer).answer2()
+        #sum3 = s.query(ActualAnswer).answer3()
+        #print(sum, sum1, sum2, sum3)
+
+        break
+    elif seeresults == "N":
+        print("Ok! have a nice day")
+        break
+    else:
+        print("Please enter 'Y' or 'N' as a response")
+        continue
