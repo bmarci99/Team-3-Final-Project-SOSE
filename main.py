@@ -11,7 +11,6 @@ from init_db import *
 s = init_db_session('question.sqlite')
 
 
-
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 print("%%%%%% S U R V E Y %%%%%%%%")
 print("%%%%%%%%%%%%%%%%%%%%%%%%%%%")
@@ -54,19 +53,37 @@ if question_options.capitalize()=="Y":
                     break
             else:
                 tries = False
-                multiplechoice = MultipleChoice(answernumber=intnumber)
-                multiplechoice.askanswer()
-                QA = MCAnswers(answers = multiplechoice.allanswers)
+
+                if intnumber == 1:
+                  multiplechoice = MultipleChoice(answernumber=intnumber)
+                  multiplechoice.askanswer()
+                  potentialanswer = PotentialAnswer(name= multiplechoice.allanswers[0])
+                  s.add(potentialanswer)
+                  s.commit()
+                elif intnumber == 2:
+                  multiplechoice = MultipleChoice(answernumber=intnumber)
+                  multiplechoice.askanswer()
+                  potentialanswer = PotentialAnswer(name= multiplechoice.allanswers[0], name1= multiplechoice.allanswers[1])
+                  s.add(potentialanswer)
+                  s.commit()
+                elif intnumber == 3:
+                  multiplechoice = MultipleChoice(answernumber=intnumber)
+                  multiplechoice.askanswer()
+                  potentialanswer = PotentialAnswer(name= multiplechoice.allanswers[0], name1= multiplechoice.allanswers[1], name2= multiplechoice.allanswers[2])
+                  s.add(potentialanswer)
+                  s.commit()
+                elif intnumber == 4:
+                  multiplechoice = MultipleChoice(answernumber=intnumber)
+                  multiplechoice.askanswer()
+                  potentialanswer = PotentialAnswer(name= multiplechoice.allanswers[0], name1= multiplechoice.allanswers[1], name2= multiplechoice.allanswers[2],name3= multiplechoice.allanswers[3])
+                  s.add(potentialanswer)
+                  s.commit()
+                else:
+                  print("You entered too many questions")
                 print("Your question has been created!")
 
 else:
     print("OK see you later!")
-
-
-a = s.query(Question1).all()
-
-for i in a:
-    print(i.rt)
 
 
 pollfail= 0
@@ -87,19 +104,32 @@ while True and pollfail<=3:
             break
     else:
         if launchpoll == "Y":
-            whichpoll = input("Which poll would you like to launch? (int) ")
+            print("The following polls are available to launch")
+            a = s.query(Question1).all()
+            for i in a:
+              print(i.id, i.rt)
+            whichpoll = int(input("Select the ID of the poll you would like to launch: (int) "))
+            whichpoll = whichpoll - 1
+            print("Answer the following question?")
+            print(s.query(Question1)[whichpoll].rt, "?")
+            q_id = s.query(PotentialAnswer)[whichpoll].id
+            dicti = {1 : s.query(PotentialAnswer)[q_id].name,
+                     2 : s.query(PotentialAnswer)[q_id].name1,
+                     3 : s.query(PotentialAnswer)[q_id].name2,
+                     4 : s.query(PotentialAnswer)[q_id].name3}
+            print(dicti)
+            whichchoice = int(input(("Select the number corresponding to your answer (int) ")))
+            print(whichchoice)
+            print("You have selected " + dicti[whichchoice])
+            #### THIS PART DOES NOT WORK
+            #actualanswer = ActualAnswer(qid= q_id, answer = dicti[whichchoice])
+            #s.add(actualanswer)
+            #s.commit()
+
             polllaunch == True
+
             break
         else:
             print("No poll is being launched, have a nice day!")
             polllaunch= False
             break
-
-
-
-
-
-
-
-
-
