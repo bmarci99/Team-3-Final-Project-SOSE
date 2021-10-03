@@ -36,6 +36,9 @@ while True:
             question_options= input("Are you ready to create a Poll? (response: Y/N) ")
             if question_options.capitalize()=="Y":
                 question= input("What is your question?  ")
+                last_char = question[-1]
+                if last_char != "?":
+                    question = question + "?"
                 value= Question1(rt=question)
                 s.add(value)
                 s.commit()
