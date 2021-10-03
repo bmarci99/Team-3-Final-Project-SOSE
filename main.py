@@ -108,25 +108,41 @@ while True and pollfail<=3:
             a = s.query(Question1).all()
             for i in a:
               print(i.id, i.rt)
-            whichpoll = int(input("Select the ID of the poll you would like to launch: (int) "))
-            whichpoll = whichpoll - 1
-            print("Answer the following question?")
-            print(s.query(Question1)[whichpoll].rt, "?")
-            q_id = s.query(PotentialAnswer)[whichpoll].id
-            dicti = {1 : s.query(PotentialAnswer)[q_id].name,
-                     2 : s.query(PotentialAnswer)[q_id].name1,
-                     3 : s.query(PotentialAnswer)[q_id].name2,
-                     4 : s.query(PotentialAnswer)[q_id].name3}
-            print(dicti)
-            whichchoice = int(input(("Select the number corresponding to your answer (int) ")))
-            print(whichchoice)
-            print("You have selected " + dicti[whichchoice])
-            #### THIS PART DOES NOT WORK
-            #actualanswer = ActualAnswer(qid= q_id, answer = dicti[whichchoice])
-            #s.add(actualanswer)
-            #s.commit()
 
-            polllaunch == True
+            whichpoll = int(input("Select the ID of the poll you would like to launch: (int) "))
+            q_id = whichpoll - 1
+            if (s.query(PotentialAnswer)[q_id].name == "Y") and (s.query(PotentialAnswer)[q_id].name1 == "N") and (s.query(PotentialAnswer)[q_id].name2 == None):
+                print("Answer the following question?")
+                print(s.query(Question1)[q_id].rt, "?")
+                # q_id = s.query(PotentialAnswer)[whichpoll].id
+                dicti = {1: s.query(PotentialAnswer)[q_id].name,
+                         2: s.query(PotentialAnswer)[q_id].name1}
+                print(dicti)
+                whichchoice = int(input(("Select the number corresponding to your answer (int) ")))
+                print(whichchoice)
+                print("You have selected " + dicti[whichchoice])
+                #### THIS PART DOES NOT WORK
+                actualanswer = ActualAnswer(qid=whichpoll, answer=dicti[whichchoice])
+                s.add(actualanswer)
+                s.commit()
+            else:
+                print("Answer the following question?")
+                print(s.query(Question1)[q_id].rt, "?")
+                #q_id = s.query(PotentialAnswer)[whichpoll].id
+                dicti = {1 : s.query(PotentialAnswer)[q_id].name,
+                         2 : s.query(PotentialAnswer)[q_id].name1,
+                         3 : s.query(PotentialAnswer)[q_id].name2,
+                         4 : s.query(PotentialAnswer)[q_id].name3}
+                print(dicti)
+                whichchoice = int(input(("Select the number corresponding to your answer (int) ")))
+                print(whichchoice)
+                print("You have selected " + dicti[whichchoice])
+                #### THIS PART DOES NOT WORK
+                actualanswer = ActualAnswer(qid= whichpoll, answer = dicti[whichchoice])
+                s.add(actualanswer)
+                s.commit()
+
+                polllaunch == True
 
             break
         else:
