@@ -5,15 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-#engine = create_engine(
-    #'sqlite:///OurDataBase.sqlite',
-    #connect_args ={"check_same_thread": False},
-    #poolclass=StaticPool)
 Base = declarative_base()
-#session = sessionmaker()
-#session.configure(bind=engine)
-#Base.metadata.create_all(engine)
-#s = session()
+
 
 class Question1(Base):
     __tablename__ = 'Question'
@@ -43,11 +36,3 @@ class ActualAnswer(Base):
     Potential_Answers_id = Column(Integer, ForeignKey('Potential_Answers.id'))
     actualanswer = relationship(PotentialAnswer, backref=backref('actual_answer', uselist=True))
     
-
- ## POTENTIALLY, THAT IS HOW WE COULD ADD DATA TO OUR DATABASE:
-# p = 0
-#for p in range(0,len(a)):
-#    p
-#    our_dictionary = {p : q.rt  for i in a }
-
-#print(our_dictionary)
