@@ -184,7 +184,7 @@ sum2 = 0
 sum3 = 0
 
 while True:
-    seeresults = str(input("Would you like to see the results of your poll?")).capitalize()
+    seeresults = str(input("Would you like to see the results of your poll? (Y/N) ")).capitalize()
     if seeresults == "Y":
         print("Results are available for the following polls: ")
         a = s.query(Question1).all()
@@ -193,20 +193,46 @@ while True:
         whichresults = int(input("Which poll results would you like to see today? Enter the corresponding ID (int) "))
 
         for i in range(0,len(s.query(ActualAnswer).all())):
-            print(s.query(ActualAnswer)[i].qid, whichresults )
             if s.query(ActualAnswer)[i].qid == whichresults:
-                print(s.query(ActualAnswer)[i].qid, whichresults)
                 sum0 = sum0 + s.query(ActualAnswer)[i].answer
                 sum1 = sum1 + s.query(ActualAnswer)[i].answer1
                 sum2 = sum2 + s.query(ActualAnswer)[i].answer2
                 sum3 = sum3 + s.query(ActualAnswer)[i].answer3
-                print(sum0, sum1, sum2, sum3)
             else:
                 pass
 
 
-            sumall = sum0 + sum1 + sum2 + sum3
-            print(sum0, sum1, sum2, sum3, sumall)
+        sumall = sum0 + sum1 + sum2 + sum3
+        perc0 = round((sum0 / sumall) * 100, 2)
+        perc0 = str(perc0) + "%"
+        perc1 = round((sum1 / sumall) * 100, 2)
+        perc1 = str(perc1) + "%"
+        perc2 = round((sum2 / sumall) * 100, 2)
+        perc2 = str(perc2) + "%"
+        perc3 = round((sum3 / sumall) * 100, 2)
+        perc3 = str(perc3) + "%"
+
+
+        if (s.query(PotentialAnswer)[whichresults-1].name2 == None):
+            dicti = {s.query(PotentialAnswer)[whichresults-1].name: perc0,
+                     s.query(PotentialAnswer)[whichresults-1].name1: perc1}
+            print(dicti)
+
+        elif (s.query(PotentialAnswer)[whichresults-1].name3 == None):
+            dicti = {s.query(PotentialAnswer)[whichresults-1].name: perc0,
+                     s.query(PotentialAnswer)[whichresults-1].name1: perc1,
+                     s.query(PotentialAnswer)[whichresults-1].name2: perc2}
+            print(dicti)
+
+        else:
+            dicti = {s.query(PotentialAnswer)[whichresults-1].name: perc0,
+                     s.query(PotentialAnswer)[whichresults-1].name1: perc1,
+                     s.query(PotentialAnswer)[whichresults-1].name2: perc2,
+                     s.query(PotentialAnswer)[whichresults-1].name3: perc3}
+            print(dicti)
+
+
+
 
         #results = s.query(ActualAnswer).get(whichresults)
         #print(results)
