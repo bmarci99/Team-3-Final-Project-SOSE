@@ -148,6 +148,7 @@ while True:
 
                         else:
                             print("Answer the following question?")
+                            print(q_id)
                             print(s.query(Question1)[q_id].rt, "?")
                             #q_id = s.query(PotentialAnswer)[whichpoll].id
                             dicti = {1 : s.query(PotentialAnswer)[q_id].name,
@@ -179,10 +180,6 @@ while True:
                                 print("This answer is invalid.")
 
                             polllaunch == True
-
-                            a = s.query(ActualAnswer).all()
-                            for i in a:
-                                print(i.id, i.answer, i.answer1, i.answer2, i.answer3)
 
                         break
 
